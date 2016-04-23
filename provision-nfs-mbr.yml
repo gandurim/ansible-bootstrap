@@ -36,7 +36,7 @@
       delegate_to: localhost
       sudo: false
       # use the ansible_ssh_host var here, as inventory_hostname may not be resolvable yet
-      shell: ssh-keyscan -t rsa {{ ansible_ssh_host }} | grep -v '^#' | grep -v '^no hostkey alg$'
+      shell: ssh-keyscan -t {{ pubkey_alg }} {{ ansible_ssh_host }} | grep -v '^#' | grep -v '^no hostkey alg$'
       register: hostkeys
       changed_when: false
     - name: update current ssh host key for rescue host
@@ -169,7 +169,7 @@
     - name: fetch remote ssh host key
       delegate_to: localhost
       sudo: false
-      shell: ssh-keyscan -t ecdsa -p 516 {{ ansible_ssh_host }} | grep -v '^#' | grep -v '^no hostkey alg$'
+      shell: ssh-keyscan -t {{ pubkey_alg }} -p {{ ansible_ssh_port }} {{ ansible_ssh_host }} | grep -v '^#' | grep -v '^no hostkey alg$'
       register: hostkeys
       changed_when: false
 
