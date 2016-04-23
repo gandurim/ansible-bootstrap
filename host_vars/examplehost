@@ -4,6 +4,9 @@
 
 boot_disk: /dev/sda
 
+pubkey_alg: ecdsa
+
+
 target_release: jessie
 
 network:
